@@ -26,14 +26,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${v.spring-cloud}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
 				<groupId>org.mybatis.spring.boot</groupId>
 				<artifactId>mybatis-spring-boot-starter</artifactId>
 				<version>${v.mybaits.spring}</version>
