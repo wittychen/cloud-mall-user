@@ -5,19 +5,21 @@
  * You shall not disclose such Confidential Information and shall use it only
  * in accordance with the terms of the license agreement you entered into with GuaHao.com.
  */
-package com.wittychen.cloudmall.user.manager;
+package com.wittychen.cloudmall.user.manager.stream;
 
-import com.wittychen.cloudmall.user.api.bo.UserBO;
+import org.springframework.cloud.stream.annotation.Input;
+import org.springframework.messaging.SubscribableChannel;
 
 /**
  * @author chenfan
  * @version V1.0
- * @since 2018-05-14 21:08
+ * @since 2018-05-26 13:21
  */
-public interface UserManger {
+public interface UserMessage {
 
-    UserBO get(Long id);
+    String INPUT = "user-message";
 
-    Long add(UserBO userBO);
-
+    // 管道名称
+    @Input(INPUT)
+    SubscribableChannel input();
 }

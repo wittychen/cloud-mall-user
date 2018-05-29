@@ -9,6 +9,7 @@ package com.wittychen.cloudmall.user.manager.impl;
 
 import com.wittychen.cloudmall.user.api.bo.UserBO;
 import com.wittychen.cloudmall.user.dal.mapper.UserMapper;
+import com.wittychen.cloudmall.user.dal.po.UserPO;
 import com.wittychen.cloudmall.user.manager.UserManger;
 import com.wittychen.cloudmall.user.manager.trans.UserTransForm;
 
@@ -29,5 +30,12 @@ public class UserMangerImpl implements UserManger {
     @Override
     public UserBO get(Long id) {
         return UserTransForm.trans(userMapper.selectByPrimaryKey(id));
+    }
+
+    @Override
+    public Long add(UserBO userBO) {
+        UserPO userPO = UserTransForm.trans(userBO);
+        userMapper.insert(userPO);
+        return userPO.getId();
     }
 }

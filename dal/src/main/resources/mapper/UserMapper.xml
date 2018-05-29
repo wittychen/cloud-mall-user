@@ -9,7 +9,8 @@
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.wittychen.cloudmall.user.dal.po.UserPO">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+          parameterType="com.wittychen.cloudmall.user.dal.po.UserPO">
     insert into user (id, name)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR})
   </insert>

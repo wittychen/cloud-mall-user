@@ -30,4 +30,13 @@ public class UserTransForm {
         return userBO;
     }
 
+    public static UserPO trans(UserBO userBO) {
+        if (userBO == null) {
+            return null;
+        }
+        UserPO userPO = new UserPO();
+        userPO.setId(userBO.getId());
+        userPO.setName(userBO.getName());
+        return userPO;
+    }
 }

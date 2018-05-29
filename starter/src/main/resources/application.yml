@@ -1,6 +1,13 @@
 ﻿server:
   port: 9091
 
+## Zipkin 配置
+### 配置 Zipkin 服务器
+#zipkin:
+#  server:
+#    host: localhost
+#    port: 9040
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
@@ -9,12 +16,13 @@ enableSwagger: true
 logging:
   config: classpath:logback.xml
 
+
 spring:
   application:
     name: cloud-mall-user-service
   datasource:
           name: user
-          url: jdbc:mysql://127.0.0.1:3306/user
+          url: jdbc:mysql://127.0.0.1:3306/user?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
           username: root
           password:
           # 使用druid数据源
@@ -33,12 +41,32 @@ spring:
           testOnReturn: false
           poolPreparedStatements: true
           maxOpenPreparedStatements: 20
-
+  cloud:
+    stream:
+      bindings:
+        user-message:
+          destination: cloud-mall-web-user
+#          consumer:
+#            headerMode: raw
+        sleuth:
+          binder: kafka
+  kafka:
+    BOOTSTRAP-SERVERS: localhost:9092
+    consumer:
+      group-id: cloud-mall-web-user-group
+  sleuth:
+    sampler:
+      percentage: 1
+#  zipkin:
+#    base-url: http://${zipkin.server.host}:${zipkin.server.port}
+#    enabled: true
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9020/eureka
+
+
 
 
 ## 关闭 Eureka Client，显示地通过配置方式注册 Ribbon 服务地址
@@ -51,3 +79,14 @@ eureka:
 management:
   security:
     enabled: false
+
+## Spring Cloud Stream Binding 配置
+### destination 指定 Kafka Topic
+### userMessage 为输入管道名称
+#spring.cloud.stream.bindings.user-message.destination = sf-users
+#
+### Kafka 生产者配置
+#
+##spring.kafka.BOOTSTRAP-SERVERS=localhost:9092
+##spring.kafka.consumer.group-id=sf-group
+##spring.kafka.consumer.clientId=user-service-provider
